@@ -12,7 +12,7 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
 
 ## Screenshots
 
-![screenshot](screenshot/2022-10-12-20-07-59.png)
+![screenshot](screenshot/2022-10-12-21-25-30.png)
 
 ## Learn more
 
