@@ -13,7 +13,11 @@
   <div id="digital_timer" class="mt-4 px-4 border-2 border-slate-800 bg-cover flex flex-col justify-center items-center self-center text-3xl text-slate-400">
     <%= digital_time(@timer.remain_time) %>
   </div>
-  <div id="buttons" class="flex self-center">
+  <div id="time_buttons" class="mt-12 flex justify-center gap-4">
+    <button id="minus_five_min" phx-click="update_timer" phx-value-dec="5" class="flex flex-row w-12 h-12 rounded-full bg-gray-500 shadow text-xl items-center place-content-center text-slate-100">-5</button>
+    <button id="plus_five_min" phx-click="update_timer" phx-value-inc="5" class="flex flex-row w-12 h-12 rounded-full bg-gray-500 shadow text-xl items-center place-content-center text-slate-100">+5</button>
+  </div>
+  <div id="bottom_buttons" class="flex self-center">
     <div id="pause_resume_btn" class="mt-20 w-20 h-20 bg-cover rounded-full border-blue-400 border-2 flex place-content-center justify-center overflow-hidden" phx-click={JS.push("play_or_pause", value: %{"val" => pause_or_play(@timer.status)})}>
       <%= if @timer.status == :running do %>
         <img src={Routes.static_path(@socket, "/images/pause.svg")} class="bg-slate-200 bg-opacity-50" draggable="false"/>

@@ -74,7 +74,7 @@ function dragEnd(e, hook, o) {
   // console.log(e);
   // console.log(o.deg / 6);
   if (o.active) {
-    hook.pushEvent("update-timer", { time: o.deg / 6 });
+    hook.pushEvent("update_timer", { time: o.deg / 6 });
   }
   o.active = false;
 }

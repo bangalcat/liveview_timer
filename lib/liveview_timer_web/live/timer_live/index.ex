@@ -41,8 +41,24 @@ defmodule LiveviewTimerWeb.TimerLive.Index do
      socket |> assign(:timer, Map.merge(timer, %{status: status, remain_time: remain_time}))}
   end
 
-  def handle_event("update-timer", %{"time" => minute}, %{assigns: %{timer: timer}} = socket) do
+  def handle_event("update_timer", %{"time" => minute}, %{assigns: %{timer: timer}} = socket) do
     {status, remain_time} = Timer.set_time(timer.timer_id, ceil(minute * 60))
+
+    {:noreply,
+     socket |> assign(:timer, Map.merge(timer, %{status: status, remain_time: remain_time}))}
+  end
+
+  def handle_event("update_timer", %{"inc" => inc}, %{assigns: %{timer: timer}} = socket) do
+    inc_sec = inc |> String.to_integer() |> Kernel.*(60)
+    {status, remain_time} = Timer.set_time(timer.timer_id, timer.remain_time + inc_sec)
+
+    {:noreply,
+     socket |> assign(:timer, Map.merge(timer, %{status: status, remain_time: remain_time}))}
+  end
+
+  def handle_event("update_timer", %{"dec" => dec}, %{assigns: %{timer: timer}} = socket) do
+    dec_sec = dec |> String.to_integer() |> Kernel.*(60)
+    {status, remain_time} = Timer.set_time(timer.timer_id, max(timer.remain_time - dec_sec, 0))
 
     {:noreply,
      socket |> assign(:timer, Map.merge(timer, %{status: status, remain_time: remain_time}))}

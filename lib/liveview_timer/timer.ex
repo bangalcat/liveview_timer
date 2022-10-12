@@ -3,6 +3,8 @@ defmodule LiveviewTimer.Timer do
   alias Phoenix.PubSub
   require Logger
 
+  @default_start_time 25 * 60
+
   def start_link(opts \\ []) do
     GenServer.start_link(__MODULE__, opts[:args], name: opts[:name] || __MODULE__)
   end
@@ -51,7 +53,8 @@ defmodule LiveviewTimer.Timer do
 
       :done ->
         Process.send_after(self(), :tick, 1000)
-        {:reply, status, {:running, 25 * 60}}
+        new_time = if time == 0, do: @default_start_time, else: time
+        {:reply, status, {:running, new_time}}
 
       _ ->
         {:reply, status, {status, time}}
